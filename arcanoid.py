@@ -155,17 +155,20 @@ while True:
         for block in blocks:
             if ball.colliderect(block):
                 if dx > 0:
-                    deltax = ball.right - block.left
+                    deltax = ball.right - paddle.left
                 else:
-                    deltax = block.right - ball.left
+                    deltax = paddle.right - ball.left
                 if dy > 0:
-                    deltay = ball.bottom - block.top
+                    deltay = ball.bottom - paddle.top
                 else:
-                    deltay = block.bottom - ball.top
-                if deltax > deltay:
+                    deltay = paddle.bottom - ball.top
+                if abs(deltax - deltay) < 10:
+                    dx, dy = -dx, -dy
+                elif deltax > deltay:
                     dy = -dy
                 elif deltay > deltax:
                     dx = -dx
+                    dy = -dy
                 s = blocks.index(block)
                 colorz.pop(s)
                 blocks.pop(s)
